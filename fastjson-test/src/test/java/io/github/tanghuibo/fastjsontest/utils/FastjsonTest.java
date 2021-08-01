@@ -2,6 +2,7 @@ package io.github.tanghuibo.fastjsontest.utils;
 
 import com.alibaba.fastjson.JSON;
 import io.github.tanghuibo.fastjsontest.badcode.BadCodeAble;
+import io.github.tanghuibo.fastjsontest.badcode.BadCodeInnerBean;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +49,21 @@ public class FastjsonTest {
     @Test
     public void test4() {
         System.out.println(JSON.parseObject("{\"a\": 1, \"a\":2}"));
+    }
+
+    @Test
+    public void test5() {
+        JSON.parseObject("{\n" +
+                "  \"test\": {\n" +
+                "    \"name\": \"gaga\"\n" +
+                "  }\n" +
+                "}", BadCodeInnerBean.class);
+
+        String jsonString = "{\"@type\":\"io.github.tanghuibo.fastjsontest.badcode.BadCodeImpl\",\"name\":\"haha\"}";
+        log.info("result {}", jsonString);
+        Object result = JSON.parse(jsonString);
+        log.info("result className {}", result.getClass().getName());
+
     }
 }
 
