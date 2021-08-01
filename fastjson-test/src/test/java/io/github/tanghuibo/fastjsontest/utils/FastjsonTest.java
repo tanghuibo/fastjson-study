@@ -37,7 +37,6 @@ public class FastjsonTest {
 
     @Test
     public void test3() {
-
         JSON.parseObject("{}", BadCodeAble.class);
         String jsonString = "{\"@type\":\"io.github.tanghuibo.fastjsontest.badcode.BadCodeAble\",\"@type\":\"io.github.tanghuibo.fastjsontest.badcode.BadCodeImpl\",\"name\":\"haha\"}";
         log.info("result {}", jsonString);
@@ -48,7 +47,8 @@ public class FastjsonTest {
 
     @Test
     public void test4() {
-        System.out.println(JSON.parseObject("{\"a\": 1, \"a\":2}"));
+        //两个相同的 key 能过 ??
+        log.info("result {}", JSON.parseObject("{\"a\": 1, \"a\":2}"));
     }
 
     @Test
