@@ -17,9 +17,19 @@ public class FastjsonTest {
     @Test
     public void test1() {
 
-        String jsonString = "{\"@type\":\"java.lang.AutoCloseable\",\"@type\":\"io.github.tanghuibo.fastjsontest.vo.TestCase1Vo\",\"msg\":\"haha\"}";
+        String jsonString = "{\"@type\":\"java.lang.AutoCloseable\",\"@type\":\"io.github.tanghuibo.fastjsontest.badcode.AutoCloseableBadCode\",\"msg\":\"haha\"}";
         log.info("result {}", jsonString);
         Object result = JSON.parse(jsonString);
+        log.info("result className {}", result.getClass().getName());
+
+    }
+
+
+    @Test
+    public void test2() {
+        String jsonString = "{\"@type\":\"io.github.tanghuibo.fastjsontest.badcode.AutoCloseableBadCode\",\"msg\":\"haha\"}";
+        log.info("result {}", jsonString);
+        Object result = JSON.parseObject(jsonString, AutoCloseable.class);
         log.info("result className {}", result.getClass().getName());
     }
 }
