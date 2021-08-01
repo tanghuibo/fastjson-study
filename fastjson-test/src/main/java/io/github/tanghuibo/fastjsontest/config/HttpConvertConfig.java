@@ -23,20 +23,6 @@ public class HttpConvertConfig {
     public HttpMessageConverter configureMessageConverters() {
         FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
         FastJsonConfig config = new FastJsonConfig();
-        config.setSerializerFeatures(
-                // 保留map空的字段
-                SerializerFeature.WriteMapNullValue,
-                // 将String类型的null转成""
-                SerializerFeature.WriteNullStringAsEmpty,
-                // 将Number类型的null转成0
-                SerializerFeature.WriteNullNumberAsZero,
-                // 将List类型的null转成[]
-                SerializerFeature.WriteNullListAsEmpty,
-                // 将Boolean类型的null转成false
-                SerializerFeature.WriteNullBooleanAsFalse,
-                // 避免循环引用
-                SerializerFeature.DisableCircularReferenceDetect);
-
         converter.setFastJsonConfig(config);
         converter.setDefaultCharset(StandardCharsets.UTF_8);
         List<MediaType> mediaTypeList = new ArrayList<>();

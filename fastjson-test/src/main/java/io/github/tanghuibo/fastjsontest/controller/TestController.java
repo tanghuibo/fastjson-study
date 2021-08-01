@@ -20,6 +20,8 @@ public class TestController {
      *
      * curl --location --request POST 'http://127.0.0.1:8080/test/case1' --header 'Content-Type: application/json' --data-raw '{"msg": "data1"}'
      *
+     * curl --location --request POST 'http://127.0.0.1:8080/test/case1' --header 'Content-Type: application/json' --data-raw '{"data": {"@type":"java.lang.AutoCloseable","@type":"io.github.tanghuibo.fastjsontest.badcode.AutoCloseableBadCode","name":"test"}, "msg": "test"}'
+     *
      * @param request
      * @return
      */
