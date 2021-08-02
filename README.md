@@ -24,19 +24,19 @@ fastjson 1.2.68 版本爆出高危漏洞，本次通过寻找改漏洞触发机�
 
 [fastjson-1.2.8.sec10-sources.jar](https://repo1.maven.org/maven2/com/alibaba/fastjson/1.2.8.sec10/fastjson-1.2.8.sec10-sources.jar)
 
+1. 在 ParserConfig.denyHashCodes 中添加了 0xD59EE91F0B09EA01L
+
 ![img.png](./screenshots/img2.png)
 
+通过广大网友的暴力破解 [fastjson-blacklist](https://github.com/LeadroyaL/fastjson-blacklist)
+
+得到 0xD59EE91F0B09EA01L 为 oracle.jms.AQ
+
+但黑名单需要开启 autoType 才能使用，所以该重大漏洞与 oracle.jms.AQ 无关
+
+2. exceptClass 替换为 exceptHash 并添加了3个
+
 ![img.png](./screenshots/img3.png)
-
-在 ParserConfig.denyHashCodes 中添加了 0xD59EE91F0B09EA01L
-
-> 通过广大网友的暴力破解 [!fastjson-blacklist](https://github.com/LeadroyaL/fastjson-blacklist)
-
-> 得到 0xD59EE91F0B09EA01L 为 oracle.jms.AQ
-
-> 但黑名单需要开启 autoType 才能使用，所以该重大漏洞与 oracle.jms.AQ 无关
-
-exceptClass 替换为 exceptHash 并添加了3个
 
 通过源码分析，使用 TypeUtils.fnv1a_64 遍历 java 标准库的类名得到新增加的 3个 exceptHash 为
 
