@@ -16,7 +16,7 @@ fastjson 1.2.68 版本爆出高危漏洞，本次通过寻找改漏洞触发机�
 
 ### 下载代码查看修改点
 
-1.2.8 到 1.2.8.sec10 改动最小，增加了一个 denyHashCodes，三个 exceptClass (并将 exceptClass 替换为 exceptHash)
+1.2.8 到 1.2.8.sec10 改动较小，增加了一个 denyHashCodes，三个 exceptClass (并将 exceptClass 替换为 exceptHash)
 
 下载 source.jar 解压获取源码 (已解压放到 fastjson-source-code 文件夹下)
 
