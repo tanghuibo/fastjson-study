@@ -134,6 +134,15 @@ public HttpMessageConverter configureMessageConverters() {
 
 2. 拥有一个使用 @RequestBody 的 Controller (常见)
 
+```java
+@PostMapping("case1")
+public TestCase1Vo test1(@RequestBody TestCase1Request request) {
+    TestCase1Vo vo = new TestCase1Vo();
+    vo.setMessage(request.getMessage());
+    return vo;
+}
+```
+
 3. 拥有满足高危漏洞的类(比较难找，这里用 AutoCloseableBadCode 代替)
 
 正常请求:
