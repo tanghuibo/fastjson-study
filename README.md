@@ -32,7 +32,7 @@ fastjson 1.2.68 版本爆出高危漏洞，本次通过寻找改漏洞触发机�
 
 得到 0xD59EE91F0B09EA01L 为 oracle.jms.AQ
 
-但黑名单需要开启 autoType 才能使用，所以该重大漏洞与 oracle.jms.AQ 无关
+但黑名单需要开启 autoType 才能使用，所以该重大漏洞大概率与 oracle.jms.AQ 无关
 
 2. exceptClass 替换为 exceptHash 并添加了3个
 
