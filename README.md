@@ -105,9 +105,9 @@ Object result = JSON.parseObject("\"@type\":\"io.github.tanghuibo.fastjsontest.b
 
 绕过此次漏洞是由该方式造成的，那么该类需要有如下特征
 
-1. 拥有公开的无参构造方法
-2. getXXX 或 setXXX 或无参构造方法能触发危险操作
-3. 实现 AutoType
+1. 拥有公开的构造方法且非抽象类
+2. getXXX 或 setXXX 或构造方法能触发危险操作
+3. 实现 AutoCloseable
 4. 不在 fastjson 的黑名单中
 5. 在 java 标准库中或常用的第三方库中
 
