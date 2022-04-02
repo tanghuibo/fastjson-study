@@ -168,3 +168,32 @@ curl --location --request POST 'http://127.0.0.1:8080/test/case1' --header 'Cont
 3. 指定期望类情况下依旧下不对是否有该参数进行校验
 4. 用户可能会在不知情的情况下对某些类进行反序列化，被反序列过的类再次反序列化校验不严格
 
+
+# json 杂谈
+
+## 对java 16 record 的支持
+
+### 序列化支持
+
+fastjson 不支持 record 序列化
+
+gson、jackson 支持 record 序列化
+
+### 反序列化支持
+
+gson 通过反射字段赋值，导致不支持 record (当被反序列化对象没有无参构造方法时，gson 可以通过 unsafe 方法创建对象)。
+
+fastjson 遇到没有无参构造方法时，自动找寻参数最长的构造方法进行反序列化。
+
+jackson 通过对 record 单独适配对齐进行支持, 判断其是否继承 Record
+
+```java
+ public static boolean isRecordType(Class<?> cls) {
+    Class<?> parent = cls.getSuperclass();
+    return (parent != null) && "java.lang.Record".equals(parent.getName());
+}
+```
+
+### 结论
+
+仅 jackson 对 record 完美支持
